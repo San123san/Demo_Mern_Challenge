@@ -20,7 +20,7 @@ function Statics() {
         setError(null)
 
         try {
-            const response = await axios.post('/api/v1/transactional/statistics', { month })
+            const response = await axios.post('https://demo-mern-challenge.onrender.com', { month })
             setStatistics(response.data.data)  
         } catch (err) {
             setError('Failed to fetch statistics')
