@@ -17,7 +17,7 @@ const transactionSchema = new mongoose.Schema({
         min: 0
     },
     priceAsString: {
-        type: String, // Add this field to support partial matches
+        type: String,
         required: true
     },
     description: {

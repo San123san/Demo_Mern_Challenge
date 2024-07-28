@@ -1,127 +1,113 @@
 import React, { useState, useEffect, useRef } from 'react'
-import axios from 'axios';
+import axios from 'axios'
 import Close from '../assets/Close.svg'
 
 const months = [
     'Selected month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-];
+]
 
 function Table() {
-    // State for transactions, selected month, search term, and pagination
-    const [transactions, setTransactions] = useState([]);
-    const [selectedMonth, setSelectedMonth] = useState('March');
-    const [searchTerm, setSearchTerm] = useState('');
-    const [pageNumber, setPageNumber] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
+    const [transactions, setTransactions] = useState([])
+    const [selectedMonth, setSelectedMonth] = useState('March')
+    const [searchTerm, setSearchTerm] = useState('')
+    const [pageNumber, setPageNumber] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const [loading, setLoading] = useState(false)
     const [fetchall, setfetchall] = useState([])
 
     const tableContainerRef = useRef(null)
 
-    // Function to fetch transactions from the backend
     const fetchTransactions = async () => {
-        setLoading(true);
+        setLoading(true)
         try {
             const response = await axios.post('/api/v1/transactional/search', {
                 search: searchTerm,
                 page: pageNumber,
                 month: selectedMonth
-            });
-            const transactionsData = response.data.data.transactions;
+            })
+            const transactionsData = response.data.data.transactions
 
-            // Transform 'sold' field from true/false to 'Yes/No'
             const transformedTransactions = transactionsData.map(transaction => ({
                 ...transaction,
                 sold: transaction.sold ? 'Yes' : 'No'
-            }));
+            }))
 
-            setTransactions(transformedTransactions);
-            setTotalPages(response.data.data.totalPages);
+            setTransactions(transformedTransactions)
+            setTotalPages(response.data.data.totalPages)
             console.log(transactions)
         } catch (error) {
-            console.error('Error fetching transactions:', error);
+            console.error('Error fetching transactions:', error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
-    // Fetch transactions when the component mounts or when pageNumber or searchTerm changes
     useEffect(() => {
-        fetchTransactions();
+        fetchTransactions()
     }, [pageNumber, searchTerm, selectedMonth])
 
 
     const fetchAllTransactions = async () => {
-        setLoading(true);
+        setLoading(true)
         try {
-            const response = await axios.post('/api/v1/transactional/initialize');
+            const response = await axios.post('/api/v1/transactional/initialize')
             setfetchall(response.data)
             console.log(transactions)
         } catch (error) {
-            console.error('Error fetching transactions:', error);
+            console.error('Error fetching transactions:', error)
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     useEffect(() => {
-        fetchAllTransactions();
-    }, []);
+        fetchAllTransactions()
+    }, [])
 
-    // Fetch transactions when the component mounts or when pageNumber or searchTerm changes
     useEffect(() => {
-        fetchTransactions();
+        fetchTransactions()
     }, [pageNumber, searchTerm, selectedMonth])
 
-
-
-    // Scroll to top when page number changes
     useEffect(() => {
-        // window.scrollTo(1, 1);
-        const scrollToPosition = window.innerHeight / 3; // Calculate one-third of the viewport height
-        window.scrollTo(0, scrollToPosition);
-    }, [pageNumber]);
+        const scrollToPosition = window.innerHeight / 3 
+        window.scrollTo(0, scrollToPosition)
+    }, [pageNumber])
 
-    // Handle month change event
     const handleMonthChange = (event) => {
-        setSelectedMonth(event.target.value);
-    };
+        setSelectedMonth(event.target.value)
+    }
 
-    // Handle search input change event
     const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value);
-        setSelectedMonth('Selected month');
-    };
+        setSearchTerm(event.target.value)
+        setSelectedMonth('Selected month')
+    }
 
-    // Handle search input key down event
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent any default action
-            setPageNumber(1); // Reset to the first page when search term changes
-            fetchTransactions();
+            event.preventDefault() 
+            setPageNumber(1) 
+            fetchTransactions()
         }
-    };
+    }
 
-    // Handle search clear button click
     const handleClearSearch = () => {
         setSelectedMonth('Selected month')
-        setSearchTerm('');
-        setPageNumber(1); // Reset to the first page when clearing search
-        fetchTransactions(); // Fetch all transactions
-    };
+        setSearchTerm('')
+        setPageNumber(1) 
+        fetchTransactions() 
+    }
 
-    // Handle pagination button clicks
     const handleNextPage = () => {
         if (pageNumber < totalPages) {
-            setPageNumber(pageNumber + 1);
+            setPageNumber(pageNumber + 1)
         }
-    };
+    }
 
     const handlePreviousPage = () => {
         if (pageNumber > 1) {
-            setPageNumber(pageNumber - 1);
+            setPageNumber(pageNumber - 1)
         }
-    };
+    }
 
     return (
         <>
@@ -143,8 +129,8 @@ function Table() {
                                     placeholder='Search Transaction'
                                     value={searchTerm}
                                     onChange={handleSearchChange}
-                                    onKeyDown={handleKeyDown}  // Handle Enter key press
-                                    className='p-2 outline-none rounded-full w-full pr-10'  // Add padding-right to make space for the clear button
+                                    onKeyDown={handleKeyDown} 
+                                    className='p-2 outline-none rounded-full w-full pr-10' 
                                 />
                                 {searchTerm && (
                                     <button

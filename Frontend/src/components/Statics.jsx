@@ -3,47 +3,45 @@ import axios from 'axios'
 
 const months = [
     'Selected month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-];
+]
 
 function Statics() {
-    const [selectedMonth, setSelectedMonth] = useState('Selected month');
+    const [selectedMonth, setSelectedMonth] = useState('Selected month')
     const [statistics, setStatistics] = useState({
         totalSales: 0,
         soldItems: 0,
         notSoldItems: 0,
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    })
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
-    // Fetch statistics data from the server
     const fetchStatistics = async (month) => {
-        setLoading(true);
-        setError(null);
+        setLoading(true)
+        setError(null)
 
         try {
-            const response = await axios.post('/api/v1/transactional/statistics', { month });
-            setStatistics(response.data.data);  // Assuming the API response has the data in `data` field
+            const response = await axios.post('/api/v1/transactional/statistics', { month })
+            setStatistics(response.data.data)  
         } catch (err) {
-            setError('Failed to fetch statistics');
+            setError('Failed to fetch statistics')
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
-    // Handle month change event
     const handleMonthChange = (event) => {
-        const newMonth = event.target.value;
-        setSelectedMonth(newMonth);
+        const newMonth = event.target.value
+        setSelectedMonth(newMonth)
         if (newMonth !== 'Selected month') {
-            fetchStatistics(newMonth);
+            fetchStatistics(newMonth)
         } else {
             setStatistics({
                 totalSales: 0,
                 soldItems: 0,
                 notSoldItems: 0,
-            });
+            })
         }
-    };
+    }
 
     return (
         <>

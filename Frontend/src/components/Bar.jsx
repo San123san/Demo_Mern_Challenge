@@ -10,7 +10,7 @@ function Bar() {
   const [selectedMonth, setSelectedMonth] = useState('Selected month');
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const chartRef = useRef(null); // Reference to the canvas element
+  const chartRef = useRef(null)
   const chartInstanceRef = useRef(null);
 
   useEffect(() => {
@@ -35,12 +35,10 @@ function Bar() {
     if (chartData && chartRef.current) {
       const ctx = chartRef.current.getContext('2d');
 
-      // Destroy the previous chart instance if it exists
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
       }
 
-      // Create a new chart instance
       const newChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -48,30 +46,30 @@ function Bar() {
           datasets: [{
             label: 'Number of Items',
             data: Object.values(chartData),
-            backgroundColor: 'rgba(0, 51, 102, 0.8)', // Dark blue color with some transparency
+            backgroundColor: 'rgba(0, 51, 102, 0.8)', 
             borderColor: 'rgba(0, 51, 102, 1)',
             borderWidth: 1,
           }],
         },
         options: {
-          responsive: true, // Ensures the chart resizes with its container
-          maintainAspectRatio: false, // Allows the chart to fill its container without maintaining aspect ratio
+          responsive: true, 
+          maintainAspectRatio: false, 
           scales: {
             x: {
               beginAtZero: true,
               grid: {
-                display: false, // Hide vertical grid lines
+                display: false, 
               },
               title: {
                 display: true,
                 text: 'Price Ranges',
                 font: {
-                  size: 18, // Font size for x-axis title
+                  size: 18, 
                 },
               },
               ticks: {
                 font: {
-                  size: 14, // Font size for x-axis tick labels
+                  size: 14, 
                 },
               },
             },
@@ -81,12 +79,12 @@ function Bar() {
                 display: true,
                 text: 'Number of Items',
                 font: {
-                  size: 18, // Font size for y-axis title
+                  size: 18, 
                 },
               },
               ticks: {
                 font: {
-                  size: 14, // Font size for y-axis tick labels
+                  size: 14, 
                 },
               },
             },
@@ -95,27 +93,25 @@ function Bar() {
             legend: {
               labels: {
                 font: {
-                  size: 16, // Font size for legend labels
+                  size: 16,
                 },
               },
             },
             tooltip: {
               titleFont: {
-                size: 16, // Font size for tooltip title
+                size: 16, 
               },
               bodyFont: {
-                size: 14, // Font size for tooltip body
+                size: 14, 
               },
             },
           },
         },
       });
 
-      // Store the new chart instance in the ref
       chartInstanceRef.current = newChartInstance;
     }
 
-    // Cleanup function to destroy the chart instance when the component unmounts or chartData changes
     return () => {
       if (chartInstanceRef.current) {
         chartInstanceRef.current.destroy();
@@ -169,141 +165,3 @@ function Bar() {
 }
 
 export default Bar
-
-
-// import React, { useState, useRef, useEffect } from 'react'
-// import axios from 'axios'
-
-// const months = [
-//   'Selected month', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-// ];
-
-// function Bar() {
-
-//   const [selectedMonth, setSelectedMonth] = useState('Selected month');
-//   const [chartData, setChartData] = useState({});
-//   const chartRef = useRef(null);
-//   const chartInstance = useRef(null); // Ref to keep track of the chart instance
-
-//   useEffect(() => {
-//     if (selectedMonth === 'Selected month') return;
-
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.post('/api/v1/transactional/bar_chart', { month: selectedMonth });
-//         const data = response.data.data; // Extract the actual data
-
-//         // Check if priceRanges is defined and is an object
-//         if (data && typeof data === 'object') {
-//           setChartData({
-//             labels: Object.keys(data),
-//             datasets: [
-//               {
-//                 label: 'Number of Items',
-//                 data: Object.values(data),
-//                 backgroundColor: 'green',
-//                 // backgroundColor: 'rgba(54, 162, 235, 0.8)',
-//                 borderColor: 'rgba(75, 192, 192, 1)',
-//                 borderWidth: 1,
-//               },
-//             ],
-//           });
-//         } else {
-//           console.error('Invalid data format:', data);
-//           setChartData({}); // Set empty data to avoid rendering errors
-//         }
-//       } catch (error) {
-//         console.error('Error fetching chart data', error);
-//       }
-//     };
-
-//     fetchData();
-//   }, [selectedMonth]);
-
-//   useEffect(() => {
-//     if (chartData.labels && chartData.datasets) {
-//       const ctx = chartRef.current.getContext('2d');
-      
-//       if (chartInstance.current) {
-//         chartInstance.current.destroy();
-//       }
-
-//       chartInstance.current = new Chart(ctx, {
-//         type: 'bar',
-//         data: chartData,
-//         options: {
-//           responsive: true,
-//           plugins: {
-//             legend: {
-//               position: 'top',
-//             },
-//             tooltip: {
-//               callbacks: {
-//                 label: function (tooltipItem) {
-//                   return `Number of Items: ${tooltipItem.raw}`;
-//                 },
-//               },
-//             },
-//           },
-//           scales: {
-//             x: {
-//               beginAtZero: true,
-//               title: {
-//                 display: true,
-//                 text: 'Price Ranges',
-//               },
-//               grid: {
-//                 display: false, // Remove vertical lines
-//               },
-//             },
-//             y: {
-//               beginAtZero: true,
-//               title: {
-//                 display: true,
-//                 text: 'Number of Items',
-//               },
-//               grid: {
-//                 drawBorder: false, // Optional: remove border on y-axis
-//               },
-//             },
-//           },
-//         },
-//       });
-//     }
-//   }, [chartData]);
-
-//   const handleMonthChange = (event) => {
-//     setSelectedMonth(event.target.value);
-//   };
-
-//   return (
-//     <>
-//       <div className='mt-10'>
-//         <div> Transactions Bar Chart </div>
-//         <div>
-//           <div className='flex'>
-//             <div>Bar Charts stats -</div>
-//             <div className='border-2 rounded-md p-1'>
-//               <select
-//                 value={selectedMonth}
-//                 onChange={handleMonthChange}
-//                 className='p-2 outline-none rounded-full bg-white'
-//               >
-//                 {months.map((month) => (
-//                   <option key={month} value={month}>
-//                     {month}
-//                   </option>
-//                 ))}
-//               </select>
-//             </div>
-//           </div>
-//           <div className='mt-5'>
-//             <canvas ref={chartRef}></canvas>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default Bar
