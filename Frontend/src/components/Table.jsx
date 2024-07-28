@@ -20,7 +20,7 @@ function Table() {
     const fetchTransactions = async () => {
         setLoading(true)
         try {
-            const response = await axios.post('https://demo-mern-challenge.onrender.com', {
+            const response = await axios.post('https://demo-mern-challenge.onrender.com/api/v1/transactional/search', {
                 search: searchTerm,
                 page: pageNumber,
                 month: selectedMonth
@@ -50,7 +50,7 @@ function Table() {
     const fetchAllTransactions = async () => {
         setLoading(true)
         try {
-            const response = await axios.post('https://demo-mern-challenge.onrender.com')
+            const response = await axios.post('https://demo-mern-challenge.onrender.com/api/v1/transactional/initialize')
             setfetchall(response.data)
             console.log(transactions)
         } catch (error) {

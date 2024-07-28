@@ -19,7 +19,7 @@ function Bar() {
 
       setLoading(true);
       try {
-        const response = await axios.post('https://demo-mern-challenge.onrender.com', { month: selectedMonth });
+        const response = await axios.post('https://demo-mern-challenge.onrender.com/api/v1/transactional/bar_chart', { month: selectedMonth });
         setChartData(response.data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
