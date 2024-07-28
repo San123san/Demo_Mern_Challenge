@@ -8,7 +8,7 @@ import axios from "axios"
 //Create an API to list the all transactions
 const initializeInformation = async () => {
     try {
-        const response = await axios.get('process.env.API_URL')
+        const response = await axios.get(process.env.API_URL)
         console.log('API response data:', response.data)
         const transactions = response.data
 
