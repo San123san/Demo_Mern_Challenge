@@ -5,7 +5,88 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import axios from "axios"
 
 // Controller function to initialize database
+<<<<<<< HEAD
 //Create an API to list the all transactions
+=======
+// const initializeInformation = asyncHandler(async (req, res, next) => {
+//     try {
+//         // Fetch data from the third-party API
+//         const response = await axios.get('https://product_transaction.json');
+
+//         // Log the API response data
+//         console.log('API response data:', response.data);
+
+//         const transactions = response.data;
+
+//         // Extract IDs of existing transactions in the database
+//         const existingTransactions = await transaction.find({}).select('id').lean();
+//         const existingTransactionIds = existingTransactions.map(t => t.id);
+
+//         // Create a map of existing transactions by ID
+//         const existingTransactionMap = new Map(existingTransactions.map(t => [t.id, t]));
+
+//         // Prepare arrays to hold new and updated transactions
+//         const newTransactions = [];
+//         const updatedTransactions = [];
+
+//         // Compare and categorize transactions
+//         transactions.forEach(t => {
+//             // Convert price to string
+//             const priceAsString = t.price.toFixed(2); // Convert number to string with 2 decimal places
+
+//             // Create transaction object with price as string
+//             const transactionWithPriceString = {
+//                 ...t,
+//                 priceAsString
+//             };
+//             if (existingTransactionIds.includes(t.id)) {
+//                 // Check if the document has changed
+//                 const existingTransaction = existingTransactionMap.get(t.id);
+//                 // if (JSON.stringify(existingTransaction) !== JSON.stringify(t)) {
+//                 //     // Document has changed, add to updates
+//                 //     updatedTransactions.push(t);
+//                 // }
+//                 if (JSON.stringify(existingTransaction) !== JSON.stringify(transactionWithPriceString)) {
+//                     // Document has changed, add to updates
+//                     updatedTransactions.push(transactionWithPriceString);
+//                 }
+//             } else {
+//                 // Document is new, add to new transactions
+//                 newTransactions.push(transactionWithPriceString);
+//             }
+//         });
+
+//         // Insert new data into the database
+//         if (newTransactions.length > 0) {
+//             await transaction.insertMany(newTransactions);
+//             console.log('New transactions inserted:', newTransactions);
+//         }
+
+//         // Update existing records
+//         if (updatedTransactions.length > 0) {
+//             const bulkOps = updatedTransactions.map(t => ({
+//                 updateOne: {
+//                     filter: { id: t.id },
+//                     update: { $set: t },
+//                     upsert: true // Only update, do not insert if the document does not exist
+//                 }
+//             }));
+//             await transaction.bulkWrite(bulkOps);
+//             console.log('Updated transactions:', updatedTransactions);
+//         }
+
+//         // Send a success response
+//         res.status(200).json(new ApiResponse(200, {
+//             new: newTransactions,
+//             updated: updatedTransactions
+//         }, "Database updated successfully"));
+//     } catch (error) {
+//         console.error('Error initializing database:', error.message);
+//         console.error('Error stack:', error.stack);
+//         next(new ApiError(500, 'Failed to initialize database', error.message));
+//     }
+// });
+>>>>>>> 95c544099adab624cbc95f2686e019082df516d4
 const initializeInformation = async () => {
     try {
         const response = await axios.get('process.env.API_URL')
