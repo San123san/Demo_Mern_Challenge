@@ -8,7 +8,7 @@ import axios from "axios";
 // const initializeInformation = asyncHandler(async (req, res, next) => {
 //     try {
 //         // Fetch data from the third-party API
-//         const response = await axios.get('https://s3.amazonaws.com/roxiler.com/product_transaction.json');
+//         const response = await axios.get('https://product_transaction.json');
 
 //         // Log the API response data
 //         console.log('API response data:', response.data);
