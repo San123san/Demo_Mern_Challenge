@@ -1,6 +1,6 @@
 
 ## Demo_Mern_Stack_Coding_Challenge
-## Website Link: https://demo-blog-website-1.onrender.com
+## Website Link: https://demo-mern-challenge-1.onrender.com
 ### Overview
 The application involves building a backend to interact with a third-party API and a frontend to display transaction data in a table and charts. The challenge consists of several tasks that include creating APIs for fetching, filtering, and aggregating transaction data, as well as developing a React frontend to display this data in a user-friendly manner.
 
