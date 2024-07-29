@@ -54,7 +54,7 @@ function Table() {
             setfetchall(response.data)
             console.log(transactions)
         } catch (error) {
-            console.error('Error fetching transactions:', error
+            console.error('Error fetching transactions:', error)
         } finally {
             setLoading(false)
         }
