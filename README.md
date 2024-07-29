@@ -1,18 +1,16 @@
 
-## Demo_Blog_Application
+## Demo_Mern_Stack_Coding_Challenge
 ## Website Link: https://demo-blog-website-1.onrender.com
-### Description
-The Demo Blog Application allows users to create, delete, edit, and share blogs across various categories including Technology, Lifestyle, Food, and Travel. Users can share blogs by entering
-an email address or username, with options to grant edit or view permissions. The website is designed to be responsive, ensuring a seamless experience across various devices.
+### Overview
+The application involves building a backend to interact with a third-party API and a frontend to display transaction data in a table and charts. The challenge consists of several tasks that include creating APIs for fetching, filtering, and aggregating transaction data, as well as developing a React frontend to display this data in a user-friendly manner.
 
 ### Techonology
 - React.js
 - Mongoose
 - Express.js
 - Node.js
-- Material-UI
-- Draft (WYSIWYG editor)
-- Redux Toolkit
+- Tailwind CSS
+- Chart.js
 
 ### How to install and run
 1. Clone the repo.
